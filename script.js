@@ -95,6 +95,18 @@ function tampilkanForm() {
           <option value="Yayasan">Pegawai Yayasan</option>
           <option value="Koperasi">Pegawai Koperasi</option>
         </select>
+
+        <label for="aset">Aset Jaminan Memadai:</label>
+      <select id="aset">
+        <option value="ya">Ya</option>
+        <option value="tidak">Tidak</option>
+      </select>
+
+      <label for="usiaMultiguna">Usia:</label>
+      <input type="number" id="usiaMultiguna" required>
+
+      <label for="masakerjaMultiguna">Masa Kerja (tahun):</label>
+      <input type="number" id="masakerjaMultiguna" required>
     
         <label><input type="checkbox" id="dokumen_lengkap"> Dokumen Lengkap (KTP, NPWP, Slip Gaji, Jaminan)</label>
       `;
@@ -110,6 +122,12 @@ function tampilkanForm() {
   
         <label for="omzet">Omzet Bulanan (Juta):</label>
         <input type="number" id="omzet" min="0">
+
+        <label for="feasible">Usaha feasible tapi belum memenuhi standar kredit biasa?</label>
+         <select id="feasible">
+         <option value="ya">Ya</option>
+         <option value="tidak">Tidak</option>
+         </select>
   
         <label><input type="checkbox" id="legalitas"> Memiliki Legalitas Usaha</label>
         <label><input type="checkbox" id="pinjaman_bank"> Sedang Menerima Pinjaman Bank Lain</label>
@@ -134,85 +152,92 @@ function tampilkanForm() {
       `;
     }
   }
-  
-  
   function cekKelayakanGabungan() {
-    const hasilDiv = document.getElementById("hasil");
-    hasilDiv.innerHTML = "<em>Sedang mengecek kelayakan...</em>"; // loading efek
-  
-    setTimeout(() => {
-      const jenis = document.getElementById("jenis_kredit").value;
-      let hasil = "Tidak Layak";
-      let alasan = "";
-  
-      if (jenis === "multiguna") {
-        const pendapatan = parseFloat(document.getElementById("pendapatan").value);
-        const riwayat = document.getElementById("riwayat").value;
-        const pekerjaan = document.getElementById("pekerjaan").value;
-        const dokumenLengkap = document.getElementById("dokumen_lengkap").checked;
-      
-        const daftarPekerjaanLayak = ["PNS", "CPNS", "BUMN", "BUMD", "TNI", "POLRI", "Legislatif", "Swasta", "Pensiunan", "P3K", "Kontrak", "Honorer", "Perangkat Desa", "Yayasan", "Koperasi"];
-      
-        if (!dokumenLengkap) {
-          alasan += "Dokumen belum lengkap. ";
-        }
-        if (!daftarPekerjaanLayak.includes(pekerjaan)) {
-          alasan += "Pekerjaan tidak termasuk sasaran Kredit Multiguna. ";
-        }
-        if (pendapatan < 3) {
-          alasan += "Pendapatan kurang dari 3 juta. ";
-        }
-        if (riwayat === "buruk") {
-          alasan += "Riwayat kredit buruk. ";
-        }
-      
-        if (alasan === "") {
-          hasil = "Layak Kredit Multiguna";
-      
-          // Info tambahan simulasi plafond maksimal
-          let plafondMaksimal = pendapatan * 0.8;
-          hasil += `<br><small>(Estimasi Plafond Maksimal: Rp ${plafondMaksimal.toFixed(2)} Juta)</small>`;
-        }
+  const hasilDiv = document.getElementById("hasil");
+  hasilDiv.innerHTML = "<em>Sedang mengecek kelayakan...</em>";
+
+  setTimeout(() => {
+    const jenis = document.getElementById("jenis_kredit").value;
+    let hasil = "Tidak Layak";
+    let alasan = "";
+
+    if (jenis === "multiguna") {
+      const pendapatan = parseFloat(document.getElementById("pendapatan").value);
+      const riwayat = document.getElementById("riwayat").value;
+      const pekerjaan = document.getElementById("pekerjaan").value;
+      const dokumenLengkap = document.getElementById("dokumen_lengkap").checked;
+
+      const daftarPekerjaanLayak = [
+        "PNS", "CPNS", "BUMN", "BUMD", "TNI", "POLRI", "Legislatif",
+        "Swasta", "Pensiunan", "P3K", "Kontrak", "Honorer", 
+        "Perangkat Desa", "Yayasan", "Koperasi"
+      ];
+
+      const usia = parseInt(document.getElementById("usiaMultiguna").value);
+      const masaKerja = parseFloat(document.getElementById("masakerjaMultiguna").value);
+      if (isNaN(usia) || usia < 21 || usia > 55) {
+        hasil.innerHTML = "Kredit Tidak Layak: Usia tidak memenuhi syarat (21–55 tahun).";
+        return;
       }
       
-      else if (jenis === "kur") {
-        const lamaUsaha = parseInt(document.getElementById("lama_usaha").value);
-        const omzet = parseFloat(document.getElementById("omzet").value);
-        const legalitas = document.getElementById("legalitas").checked;
-        const pinjamanBank = document.getElementById("pinjaman_bank").checked;
-  
-        if (lamaUsaha >= 6 && omzet >= 2 && !pinjamanBank) {
-          hasil = legalitas ? "Layak KUR" : "Perlu Legalitas Usaha untuk KUR";
-        } else {
-          if (lamaUsaha < 6) alasan += "Lama usaha kurang dari 6 bulan. ";
-          if (omzet < 2) alasan += "Omzet bulanan kurang dari 2 juta. ";
-          if (pinjamanBank) alasan += "Sedang menerima pinjaman bank lain. ";
-        }
-      } 
-      else if (jenis === "kkb") {
-        const pekerjaan = document.getElementById("pekerjaan_kkb").value;
-        const usia = parseInt(document.getElementById("usia").value);
-        const riwayat = document.getElementById("riwayat_kkb").value;
-  
-        if (usia >= 21 && usia <= 60 && riwayat === "baik") {
-          if (pekerjaan === "tetap" || pekerjaan === "usaha") {
-            hasil = "Layak Kredit Kendaraan Bermotor";
-          } else {
-            hasil = "Dipertimbangkan Kredit Kendaraan Bermotor";
-          }
-        } else {
-          if (usia < 21 || usia > 60) alasan += "Usia tidak memenuhi syarat (21-60 tahun). ";
-          if (riwayat !== "baik") alasan += "Riwayat kredit buruk. ";
-        }
+      if (isNaN(masaKerja) || masaKerja < 1) {
+        hasil.innerHTML = "Kredit Tidak Layak: Masa kerja kurang dari 1 tahun.";
+        return;
       }
-  
-      let output = `<strong>Hasil:</strong> ${hasil}`;
-      if (hasil === "Tidak Layak" && alasan !== "") {
-        output += `<br><strong>Alasan:</strong> ${alasan}`;
+
+      if (!dokumenLengkap) alasan += "Dokumen belum lengkap. ";
+      if (!daftarPekerjaanLayak.includes(pekerjaan)) alasan += "Pekerjaan tidak termasuk sasaran Kredit Multiguna. ";
+      if (isNaN(pendapatan) || pendapatan < 3) alasan += "Pendapatan kurang dari 3 juta. ";
+      if (riwayat === "buruk") alasan += "Riwayat kredit buruk. ";
+
+      if (alasan === "") {
+        hasil = "Layak Kredit Multiguna";
+        const plafond = pendapatan * 0.8;
+        hasil += `<br><small>(Estimasi Plafond Maksimal: Rp ${plafond.toFixed(2)} Juta)</small>`;
       }
+    }
+
+    else if (jenis === "kur") {
+      const jenisUsaha = document.getElementById("jenis_usaha").value.trim();
+      const lamaUsaha = parseInt(document.getElementById("lama_usaha").value);
+      const omzet = parseFloat(document.getElementById("omzet").value);
+      const legalitas = document.getElementById("legalitas").checked;
+      const pinjamanBank = document.getElementById("pinjaman_bank").checked;
+
+      if (jenisUsaha === "") alasan += "Jenis usaha belum diisi. ";
+      if (isNaN(lamaUsaha) || lamaUsaha < 6) alasan += "Lama usaha kurang dari 6 bulan. ";
+      if (isNaN(omzet) || omzet < 2) alasan += "Omzet kurang dari 2 juta. ";
+      if (!legalitas) alasan += "Belum memiliki legalitas usaha. ";
+      if (pinjamanBank) alasan += "Sedang menerima pinjaman produktif lain. ";
+      const feasible = document.getElementById("feasible").value;
+      if (feasible !== "ya") {
+        hasil.innerHTML = "Kredit Tidak Layak: Usaha tidak layak atau sudah masuk kategori standar kredit biasa.";
+        return;
+      }
+
+
+      if (alasan === "") {
+        hasil = "Layak Kredit Usaha Rakyat (KUR)";
+      }
+    }
+
+    else if (jenis === "kkb") {
+      const pekerjaan = document.getElementById("pekerjaan_kkb").value;
+      const usia = parseInt(document.getElementById("usia").value);
+      const riwayat = document.getElementById("riwayat_kkb").value;
+
+      if (pekerjaan !== "tetap" && pekerjaan !== "usaha") alasan += "Pekerjaan belum tetap atau belum stabil. ";
+      if (isNaN(usia) || usia < 21 || usia > 60) alasan += "Usia tidak memenuhi syarat (21–60 tahun). ";
+      if (riwayat === "buruk") alasan += "Riwayat kredit buruk. ";
+
+      if (alasan === "") {
+        hasil = "Layak Kredit Kendaraan Bermotor (KKB)";
+      }
+    }
+
+    hasilDiv.innerHTML = `<strong>${hasil}</strong>` + (alasan ? `<br><small>Catatan: ${alasan}</small>` : "");
+  }, 800); // simulasi proses 800ms
+}
+
   
-      hasilDiv.innerHTML = output;
-      
-    }, 1000); // delay 1 detik (1000 ms)
-  }
   
