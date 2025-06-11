@@ -175,16 +175,8 @@ function tampilkanForm() {
 
       const usia = parseInt(document.getElementById("usiaMultiguna").value);
       const masaKerja = parseFloat(document.getElementById("masakerjaMultiguna").value);
-      if (isNaN(usia) || usia < 21 || usia > 55) {
-        hasil.innerHTML = "Kredit Tidak Layak: Usia tidak memenuhi syarat (21–55 tahun).";
-        return;
-      }
-      
-      if (isNaN(masaKerja) || masaKerja < 1) {
-        hasil.innerHTML = "Kredit Tidak Layak: Masa kerja kurang dari 1 tahun.";
-        return;
-      }
-
+      if (isNaN(usia) || usia < 21 || usia > 55)alasan+= "Kredit Tidak Layak: Usia tidak memenuhi syarat (21–55 tahun)."
+      if (isNaN(masaKerja) || masaKerja < 1) alasan+="Kredit Tidak Layak: Masa kerja kurang dari 1 tahun."
       if (!dokumenLengkap) alasan += "Dokumen belum lengkap. ";
       if (!daftarPekerjaanLayak.includes(pekerjaan)) alasan += "Pekerjaan tidak termasuk sasaran Kredit Multiguna. ";
       if (isNaN(pendapatan) || pendapatan < 3) alasan += "Pendapatan kurang dari 3 juta. ";
@@ -203,19 +195,15 @@ function tampilkanForm() {
       const omzet = parseFloat(document.getElementById("omzet").value);
       const legalitas = document.getElementById("legalitas").checked;
       const pinjamanBank = document.getElementById("pinjaman_bank").checked;
+      const feasible = document.getElementById("feasible").value;
 
       if (jenisUsaha === "") alasan += "Jenis usaha belum diisi. ";
       if (isNaN(lamaUsaha) || lamaUsaha < 6) alasan += "Lama usaha kurang dari 6 bulan. ";
       if (isNaN(omzet) || omzet < 2) alasan += "Omzet kurang dari 2 juta. ";
       if (!legalitas) alasan += "Belum memiliki legalitas usaha. ";
       if (pinjamanBank) alasan += "Sedang menerima pinjaman produktif lain. ";
-      const feasible = document.getElementById("feasible").value;
-      if (feasible !== "ya") {
-        hasil.innerHTML = "Kredit Tidak Layak: Usaha tidak layak atau sudah masuk kategori standar kredit biasa.";
-        return;
-      }
-
-
+      if (feasible !== "ya") alasan += "Kredit Tidak Layak: Usaha tidak layak atau sudah masuk kategori standar kredit biasa.";
+        
       if (alasan === "") {
         hasil = "Layak Kredit Usaha Rakyat (KUR)";
       }
