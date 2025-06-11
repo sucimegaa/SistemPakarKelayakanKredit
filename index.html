@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Sistem Pakar Kelayakan Kredit</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Sistem Pakar Kelayakan Kredit</h2>
+
+    <label for="jenis_kredit">Pilih Jenis Kredit:</label>
+    <select id="jenis_kredit" onchange="tampilkanForm()">
+      <option value="">-- Pilih --</option>
+      <option value="multiguna">Kredit Multiguna</option>
+      <option value="kur">Kredit Usaha Rakyat (KUR)</option>
+      <option value="kkb">Kredit Kendaraan Bermotor (KKB)</option>
+    </select>
+
+    <form id="form_kredit">
+      <!-- Form dinamis akan muncul di sini -->
+    </form>
+
+    <button onclick="cekKelayakanGabungan()">Cek Kelayakan</button>
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
