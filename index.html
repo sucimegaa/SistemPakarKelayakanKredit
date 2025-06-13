@@ -9,20 +9,143 @@
   <div class="container">
     <h2>Sistem Pakar Kelayakan Kredit</h2>
 
-    <label for="jenis_kredit">Pilih Jenis Kredit:</label>
-    <select id="jenis_kredit" onchange="tampilkanForm()">
-      <option value="">-- Pilih --</option>
-      <option value="multiguna">Kredit Multiguna</option>
-      <option value="kur">Kredit Usaha Rakyat (KUR)</option>
-      <option value="kkb">Kredit Kendaraan Bermotor (KKB)</option>
-    </select>
+    <!-- Halaman Awal -->
+    <div id="halaman_awal">
+      <h2>Selamat Datang di Sistem Pakar Kelayakan Kredit</h2>
+      <p>Silakan pelajari terlebih dahulu jenis-jenis kredit yang tersedia:</p>
 
-    <form id="form_kredit">
-      <!-- Form dinamis akan muncul di sini -->
-    </form>
+      <div class="penjelasan-kredit">
+        <h3>Kredit Multiguna</h3>
+<p>Kredit Multiguna adalah kredit konsumtif yang diberikan kepada individu dengan jaminan aset seperti sertifikat rumah atau BPKB kendaraan. Dana pinjaman dapat digunakan untuk berbagai keperluan seperti renovasi rumah, pendidikan, kesehatan, liburan, modal usaha, dan lain-lain.</p>
 
-    <button onclick="cekKelayakanGabungan()">Cek Kelayakan</button>
-    <div class="result" id="hasil"></div>
+<p><strong>Keunggulan:</strong> Tenor panjang hingga 20 tahun, bunga kompetitif, fleksibel untuk berbagai kebutuhan pribadi.</p>
+
+<p><strong>Proses Pengajuan:</strong></p>
+<ul>
+  <li>Pengisian formulir dan penyerahan dokumen (KTP, NPWP, slip gaji, dokumen aset jaminan).</li>
+  <li>Verifikasi kelengkapan dan keabsahan oleh Admin Kredit.</li>
+  <li>Penilaian kemampuan bayar dan histori kredit nasabah.</li>
+  <li>Penilaian atas aset jaminan.</li>
+  <li>Pengajuan ke komite kredit untuk persetujuan.</li>
+  <li>Penandatanganan perjanjian oleh nasabah dan bank.</li>
+  <li>Pencairan dana sesuai kesepakatan.</li>
+</ul>
+
+<p><strong>Sasaran Nasabah:</strong> PNS, CPNS, BUMN/BUMD, TNI/Polri, pegawai swasta, pensiunan, P3K, tenaga kontrak, honorer, dan perangkat desa.</p>
+
+<p><strong>Plafon Kredit:</strong> Maksimal 80% dari penghasilan bulanan.</p>
+
+<p><strong>Sektor Pembiayaan:</strong> Seluruh kebutuhan ekonomi bersifat konsumtif.</p>
+
+<p><strong>Suku Bunga:</strong></p>
+<ul>
+  <li>1–5 tahun: 16,70% per tahun (anuitas).</li>
+  <li>6–10 tahun: 16,30% per tahun (anuitas).</li>
+</ul>
+
+<p><strong>Jangka Waktu:</strong></p>
+<ul>
+  <li>PNS/BUMN/BUMD: maks. 20 tahun</li>
+  <li>Swasta/Yayasan/Koperasi: maks. 8 tahun</li>
+  <li>TNI/Polri: maks. 15 tahun</li>
+  <li>CPNS & calon pegawai BUMN/BUMD: maks. 10 tahun</li>
+  <li>Anggota legislatif: sesuai masa bakti</li>
+  <li>BLUD Non PNS Tetap: maks. 10 tahun</li>
+</ul>
+
+<p><strong>Dokumen yang Diperlukan:</strong></p>
+<ul>
+  <li>Surat rekomendasi dari atasan/Kepala Dinas/Perusahaan.</li>
+  <li>Fotokopi KTP, KK, NIP, Karpeg (masing-masing 2 lembar).</li>
+  <li>Pas foto berwarna (2 lembar).</li>
+  <li>SK Pengangkatan dan SK terakhir.</li>
+  <li>SK besaran gaji dari bendahara diketahui atasan.</li>
+  <li>Fotokopi buku tabungan dan rekening gaji.</li>
+  <li>Surat kuasa potong gaji & surat pernyataan bendahara.</li>
+  <li>Fotokopi NPWP.</li>
+  <li>Persyaratan lainnya sesuai ketentuan Bank Jatim.</li>
+</ul>
+
+       <h3>Kredit Usaha Rakyat (KUR)</h3>
+<p>
+Kredit Usaha Rakyat (KUR) merupakan program pemerintah untuk meningkatkan akses pembiayaan bagi Usaha Mikro, Kecil, Menengah, dan Koperasi (UMKMK), guna mendorong pertumbuhan ekonomi nasional.
+</p>
+
+<p>
+UMKM memiliki peran penting dalam perekonomian Indonesia, seperti menciptakan lapangan kerja, mengurangi pengangguran dan kemiskinan. Pada tahun 2019, kontribusi UMKM terhadap PDB mencapai 60,51%, penyerapan tenaga kerja sebesar 96,92%, dan kontribusi terhadap ekspor non-migas sebesar 15,65%.
+</p>
+
+<p>
+KUR bertujuan memperkuat permodalan UMKMK melalui pembiayaan yang berasal dari dana perbankan, yang digunakan untuk keperluan <strong>modal kerja</strong> dan <strong>investasi</strong>. Program ini menyasar pelaku usaha yang <strong>feasible</strong> (layak usaha) tetapi <strong>belum bankable</strong> (belum memenuhi standar pembiayaan perbankan biasa).
+</p>
+
+<p><strong>Penerima KUR:</strong> UMKM perseorangan atau kelompok dalam wadah koperasi.</p>
+
+<p><strong>Tujuan KUR:</strong></p>
+<ul>
+  <li>Menumbuhkan dan memperkuat sektor riil.</li>
+  <li>Memberdayakan UMKMK agar lebih mandiri.</li>
+  <li>Mendorong penciptaan lapangan kerja.</li>
+  <li>Meningkatkan akses UMKMK terhadap sumber pembiayaan formal.</li>
+</ul>
+
+<p><strong>Sasaran Kredit:</strong> Usaha produktif di berbagai sektor seperti perdagangan, pertanian, perikanan, industri kecil, dan jasa.</p>
+
+        <h3>Kredit Kendaraan Bermotor (KKB)</h3>
+<p>
+Kredit Kendaraan Bermotor (KKB) adalah fasilitas pembiayaan dari bank atau perusahaan pembiayaan yang ditujukan untuk individu atau perusahaan guna membeli kendaraan bermotor, baik baru maupun bekas.
+</p>
+
+<p><strong>Jenis KKB:</strong> Kredit mobil baru, mobil bekas, sepeda motor, dan kendaraan komersial.</p>
+
+<p><strong>Syarat Umum:</strong></p>
+<ul>
+  <li>Memiliki pekerjaan tetap atau usaha yang stabil.</li>
+  <li>Usia minimum sesuai ketentuan lembaga pembiayaan.</li>
+  <li>Riwayat kredit yang baik.</li>
+</ul>
+
+<p><strong>Proses Pengajuan:</strong></p>
+<ul>
+  <li>Pengajuan aplikasi KKB dan penyerahan dokumen.</li>
+  <li>Verifikasi dan analisis kelayakan kredit.</li>
+  <li>Penilaian kendaraan (khusus kendaraan bekas).</li>
+  <li>Persetujuan kredit dan penandatanganan perjanjian.</li>
+  <li>Pencairan dana atau serah terima kendaraan.</li>
+</ul>
+
+<p><strong>Keunggulan:</strong> Proses cepat, tenor fleksibel, pembiayaan untuk berbagai jenis kendaraan.</p>
+
+<p><strong>Risiko:</strong> Beban bunga, risiko kredit macet, dan penurunan nilai kendaraan seiring waktu.</p>
+
+<p>
+KKB diatur oleh OJK dan Bank Indonesia untuk memastikan praktik pembiayaan yang sehat dan adil. Bank cenderung menawarkan bunga kompetitif, sedangkan perusahaan pembiayaan unggul dalam kecepatan proses.
+</p>
+
+<p>
+Calon debitur disarankan memahami hak dan kewajiban secara menyeluruh sebelum mengajukan KKB agar dapat mengelola keuangan dengan bijak.
+</p>
+
+      </div>
+
+      <button onclick="tampilkanPemilihanJenis()">Pilih Jenis Kredit</button>
+    </div>
+
+    <!-- Formulir Kelayakan Kredit -->
+    <div id="area_formulir" style="display: none;">
+      <label for="jenis_kredit">Pilih Jenis Kredit:</label>
+      <select id="jenis_kredit" onchange="tampilkanForm()">
+        <option value="">-- Pilih --</option>
+        <option value="multiguna">Kredit Multiguna</option>
+        <option value="kur">Kredit Usaha Rakyat (KUR)</option>
+        <option value="kkb">Kredit Kendaraan Bermotor (KKB)</option>
+      </select>
+
+      <div id="form_kredit"></div>
+
+      <button onclick="cekKelayakanGabungan()">Cek Kelayakan</button>
+      <div id="hasil"></div>
+    </div>
   </div>
 
   <script src="script.js"></script>
