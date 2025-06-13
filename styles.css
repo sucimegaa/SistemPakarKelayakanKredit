@@ -8,6 +8,43 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+#halaman_awal {
+  text-align: center;
+  padding: 20px;
+}
+
+.penjelasan-kredit {
+  text-align: left;
+  margin: 20px auto;
+  max-width: 700px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.penjelasan-kredit h3 {
+  color: #d10000;
+  margin-top: 1em;
+}
+
+#halaman_awal button {
+  margin-top: 30px;
+  padding: 12px 24px;
+  font-size: 1.1em;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(to right, #ff0000, #fbc9c2);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+#halaman_awal button:hover {
+  opacity: 0.85;
+}
+
+
 .container {
     width: 90%;
     max-width: 500px;
