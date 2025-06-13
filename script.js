@@ -1,3 +1,8 @@
+function tampilkanPemilihanJenis() {
+  document.getElementById("halaman_awal").style.display = "none";
+  document.getElementById("area_formulir").style.display = "block";
+}
+
 function tampilkanForm() {
     const jenis = document.getElementById("jenis_kredit").value;
     const form = document.getElementById("form_kredit");
@@ -160,12 +165,16 @@ function tampilkanForm() {
     const jenis = document.getElementById("jenis_kredit").value;
     let hasil = "Tidak Layak";
     let alasan = "";
+    let saran = "";
 
     if (jenis === "multiguna") {
       const pendapatan = parseFloat(document.getElementById("pendapatan").value);
       const riwayat = document.getElementById("riwayat").value;
       const pekerjaan = document.getElementById("pekerjaan").value;
       const dokumenLengkap = document.getElementById("dokumen_lengkap").checked;
+      const aset = document.getElementById("aset").value;
+      const usia = parseInt(document.getElementById("usiaMultiguna").value);
+      const masaKerja = parseFloat(document.getElementById("masakerjaMultiguna").value);
 
       const daftarPekerjaanLayak = [
         "PNS", "CPNS", "BUMN", "BUMD", "TNI", "POLRI", "Legislatif",
@@ -173,19 +182,21 @@ function tampilkanForm() {
         "Perangkat Desa", "Yayasan", "Koperasi"
       ];
 
-      const usia = parseInt(document.getElementById("usiaMultiguna").value);
-      const masaKerja = parseFloat(document.getElementById("masakerjaMultiguna").value);
-      if (isNaN(usia) || usia < 21 || usia > 55)alasan+= "Kredit Tidak Layak: Usia tidak memenuhi syarat (21–55 tahun)."
-      if (isNaN(masaKerja) || masaKerja < 1) alasan+="Kredit Tidak Layak: Masa kerja kurang dari 1 tahun."
+      if (isNaN(usia) || usia < 21 || usia > 55) alasan += "Usia tidak memenuhi syarat (21–55 tahun). ";
+      if (isNaN(masaKerja) || masaKerja < 1) alasan += "Masa kerja kurang dari 1 tahun. ";
       if (!dokumenLengkap) alasan += "Dokumen belum lengkap. ";
       if (!daftarPekerjaanLayak.includes(pekerjaan)) alasan += "Pekerjaan tidak termasuk sasaran Kredit Multiguna. ";
       if (isNaN(pendapatan) || pendapatan < 3) alasan += "Pendapatan kurang dari 3 juta. ";
+      if (aset !== "ya") alasan += "Aset jaminan tidak memadai. ";
       if (riwayat === "buruk") alasan += "Riwayat kredit buruk. ";
 
       if (alasan === "") {
         hasil = "Layak Kredit Multiguna";
         const plafond = pendapatan * 0.8;
         hasil += `<br><small>(Estimasi Plafond Maksimal: Rp ${plafond.toFixed(2)} Juta)</small>`;
+        saran = "Silakan bawa dokumen lengkap Anda ke kantor Bank Jatim terdekat untuk proses verifikasi lebih lanjut.";
+      } else {
+        saran = "Perbaiki catatan Anda terlebih dahulu atau konsultasikan langsung ke petugas Bank Jatim untuk mendapatkan alternatif solusi.";
       }
     }
 
@@ -202,10 +213,13 @@ function tampilkanForm() {
       if (isNaN(omzet) || omzet < 2) alasan += "Omzet kurang dari 2 juta. ";
       if (!legalitas) alasan += "Belum memiliki legalitas usaha. ";
       if (pinjamanBank) alasan += "Sedang menerima pinjaman produktif lain. ";
-      if (feasible !== "ya") alasan += "Kredit Tidak Layak: Usaha tidak layak atau sudah masuk kategori standar kredit biasa.";
-        
+      if (feasible !== "ya") alasan += "Usaha tidak layak atau sudah masuk kategori standar kredit biasa. ";
+
       if (alasan === "") {
         hasil = "Layak Kredit Usaha Rakyat (KUR)";
+        saran = "Bawa dokumen usaha Anda ke Bank Jatim untuk proses pengajuan KUR lebih lanjut.";
+      } else {
+        saran = "Lengkapi legalitas usaha dan pastikan usaha Anda telah berjalan dengan baik sebelum mengajukan kembali.";
       }
     }
 
@@ -220,12 +234,20 @@ function tampilkanForm() {
 
       if (alasan === "") {
         hasil = "Layak Kredit Kendaraan Bermotor (KKB)";
+        saran = "Silakan kunjungi Bank Jatim dengan membawa dokumen pendukung untuk pengajuan KKB.";
+      } else {
+        saran = "Tingkatkan stabilitas pekerjaan dan riwayat kredit Anda sebelum mencoba kembali atau konsultasikan dengan petugas bank.";
       }
     }
 
-    hasilDiv.innerHTML = `<strong>${hasil}</strong>` + (alasan ? `<br><small>Catatan: ${alasan}</small>` : "");
-  }, 800); // simulasi proses 800ms
+    hasilDiv.innerHTML = `<strong>${hasil}</strong>` +
+      (alasan ? `<br><small>Catatan: ${alasan}</small>` : "") +
+      `<br><br><em>${saran}</em>`;
+  }, 800);
+
+  
 }
+
 
   
   
